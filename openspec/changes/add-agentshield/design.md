@@ -98,7 +98,7 @@ Web（静态站点）◀── 链上事件（RPC getLogs，可选的中继缓�
 - **处理流程**：先用 `@semaphore-protocol/proof` 的 `verifyProof` 在链下校验证明；再检查 nullifier 是否已被链上使用；然后用 `eth_call` 模拟交易；最后才真正发送。
 - **限流**：针对同一个 nullifier、全局 QPS、每日 gas 预算分别限流。
 - **隐私**：关闭访问日志中的 IP 记录，代码开源。
-- **热钱包**：只存放少量 BNB。按每票约 40 万 gas、0.12 gwei 估算，1,000 票约 0.05 BNB。
+- **热钱包**：只存放少量 BNB。主网实测（2026-11-25，gas 价格 0.05 gwei）：匿名投票 342,181 gas，1,000 票约 0.017 BNB；join 130,399 gas；seedBatch 50 条 1,329,546 gas。交易记录见 `docs/dev/mainnet-deployment.md`。
 - **中继宕机时**：CLI 允许用户改用公开模式（自己付 gas 发送），或者稍后重试。
 
 ### D7. Skill 与 CLI 的交互模型

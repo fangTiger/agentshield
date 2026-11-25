@@ -25,6 +25,10 @@ export default function DisclosurePage() {
           <p>社区确认要求危险票达到 N，至少为误报票的两倍，且首张危险票已满冷静期 T。误报票达到 N 且不少于危险票时，对象进入有争议状态。N 和 T 在部署时固定。</p>
         </section>
         <section>
+          <h2>主网 gas 实测</h2>
+          <p>BSC 主网 gas 价格 0.05 gwei 下的实测值：持有者加入（<code>join</code>）130,399 gas，约 0.0000065 BNB，由持有者自己支付，仅此一次；匿名投票 342,181 gas，由中继代付；种子写入每 50 条约 133 万 gas，由种子账户支付。</p>
+        </section>
+        <section>
           <h2>种子地址的权限</h2>
           <p><code>seeder</code> 是信号库唯一特权角色，只能通过 <code>seedBatch</code> 增加种子信号并记录来源，或通过 <code>renounceSeeder</code> 永久放弃权限。社区票数独立统计。信号库不可升级，拒收资产。任何人都可以提交申诉，申诉只添加记录。</p>
         </section>
