@@ -1,0 +1,25 @@
+{
+  "name": "agentshield-wallet-guard",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "shield": "bin/shield.mjs"
+  },
+  "scripts": {
+    "build": "tsc && pnpm bundle",
+    "bundle": "node scripts/bundle.mjs"
+  },
+  "dependencies": {
+    "@agentshield/core": "workspace:*",
+    "@semaphore-protocol/identity": "4.14.5",
+    "shell-quote": "^1.8.3",
+    "viem": "2.58.6"
+  },
+  "devDependencies": {
+    "@img/sharp-wasm32": "0.35.5",
+    "@types/shell-quote": "^1.7.5",
+    "esbuild": "^0.28.2",
+    "web-worker": "1.2.0"
+  }
+}

@@ -1,0 +1,20 @@
+[
+  {
+    "type": "DOMAIN",
+    "value": "download.setup-service.com",
+    "sourceName": "Palo Alto Networks Unit 42",
+    "sourceUrl": "https://unit42.paloaltonetworks.com/openclaw-ai-supply-chain-risk/#indicators-of-compromise"
+  },
+  {
+    "type": "DOMAIN",
+    "value": "install.app-distribution.net",
+    "sourceName": "Palo Alto Networks Unit 42",
+    "sourceUrl": "https://unit42.paloaltonetworks.com/openclaw-ai-supply-chain-risk/#indicators-of-compromise"
+  },
+  {
+    "type": "DOMAIN",
+    "value": "openclawcli.vercel.app",
+    "sourceName": "Palo Alto Networks Unit 42",
+    "sourceUrl": "https://unit42.paloaltonetworks.com/openclaw-ai-supply-chain-risk/#indicators-of-compromise"
+  }
+]

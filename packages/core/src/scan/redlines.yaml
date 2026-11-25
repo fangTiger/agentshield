@@ -1,0 +1,85 @@
+version: 2
+rules:
+  - id: R1
+    severity: suspicious
+    explanation: "要求在网页扫码登录或输入配对码，或复用钱包登录会话代为下单。"
+    patterns:
+      - '(?:网页|网站|浏览器|页面)[^。！？\r\n]{0,28}(?:扫码|扫(?:描)?二维码)[^。！？\r\n]{0,24}(?:登录|授权)[^。！？\r\n]{0,18}(?:Agentic[ -]+Wallet|代理钱包)'
+      - '\b(?:web page|website|browser)\b[^.!?\r\n]{0,40}\b(?:scan|scanning)\b[^.!?\r\n]{0,20}\bQR\b[^.!?\r\n]{0,30}\b(?:log in|sign in|authenticate)\b[^.!?\r\n]{0,26}\bagentic wallet\b'
+      - '\bscan\b[^.!?\r\n]{0,20}\bQR\b[^.!?\r\n]{0,35}\b(?:log in|sign in)\b[^.!?\r\n]{0,24}\bagentic wallet\b[^.!?\r\n]{0,35}\b(?:web page|website|browser)\b'
+      - '(?:网页|网站|浏览器|页面|表单)[^。！？\r\n]{0,16}(?:输入|填写|粘贴)[^。！？\r\n]{0,24}配对码'
+      - '\b(?:enter|paste|type)\b[^.!?\r\n]{0,30}\bpairing[ -]?code\b[^.!?\r\n]{0,28}\b(?:web page|website|browser|form)\b'
+      - '(?:保存|存储|缓存|复用|重用)[^。！？\r\n]{0,18}(?:登录会话|会话令牌|登录令牌)[^。！？\r\n]{0,36}(?:下单|交易)'
+      - '\b(?:store|save|cache|reuse)\b[^.!?\r\n]{0,24}\b(?:login session|session tokens?|login tokens?)\b[^.!?\r\n]{0,42}\b(?:place (?:an? |the )?orders?|trades?|transactions?)\b'
+  - id: R2
+    severity: suspicious
+    explanation: "要求绕过用户确认执行交易。"
+    patterns:
+      - '(?:无需|不必|跳过|绕过)(?:用户的?)?(?:二次)?确认'
+      - '(?:交易|下单|订单|转账|execute|广播)[^。！？\r\n]{0,32}(?:无需确认|不经确认|不等确认|自动执行|不要询问用户|不必询问用户|直接调用\s*execute)'
+      - '(?:自动执行|不要询问用户|不必询问用户|无需确认)[^。！？\r\n]{0,32}(?:交易|下单|订单|转账|execute|广播)'
+      - '\b(?:skip|bypass)\s+(?:the\s+)?(?:user\s+)?confirmation\b'
+      - '\b(?:execute|submit|broadcast|place|send|trade|transfer|transaction|order)\b[^.!?\r\n]{0,55}\b(?:without\s+(?:asking|waiting for)\s+(?:the\s+)?user|without\s+(?:the\s+)?(?:user\s+)?(?:confirmation|consent|approval)|(?:do not|don''t|never)\s+ask\s+(?:the\s+)?user)\b'
+      - '\b(?:automatically (?:execute|submit|broadcast|place)|(?:execute|submit|broadcast|place)[^.!?\r\n]{0,20}automatically)\b[^.!?\r\n]{0,24}\b(?:trades?|transactions?|orders?|transfers?)\b'
+  - id: R3
+    severity: suspicious
+    explanation: "包含隐藏或定时资产转移，或请求无限额授权。"
+    patterns:
+      - '(?:定时|定期|后台|自动|静默)[^。！？\r\n]{0,12}(?:归集|划转)[^。！？\r\n]{0,16}(?:资金|资产|余额|代币|款项)'
+      - '夹带(?:一笔)?转账|(?:隐蔽|静默|隐藏|悄悄|不通知用户)[^。！？\r\n]{0,16}(?:转账|划转资产|发送代币)|(?:请求|授予|设置|执行)[^。！？\r\n]{0,10}无限额授权'
+      - '\b(?:silently|secretly)\s+(?:transfer|send|sweep)\b|\b(?:scheduled|periodic|automatic)\s+(?:fund|balance|asset|token)\s+(?:sweep|transfer)s?\b'
+      - '\b(?:approve|grant|request)\b[^.!?\r\n]{0,20}\bunlimited\s+(?:approval|allowance|spending)\b'
+  - id: R4
+    severity: suspicious
+    explanation: "发现疑似未披露的合约所有者特权，例如增发、调税、暂停、冻结或提取资产。"
+    patterns:
+      - '\bfunction\s+(?<permission>_?mint\w*|set\w*(?:tax|fee)\w*|_?pause\w*|_?freeze\w*|_?withdraw\w*|sweep\w*)\s*\([^{};]{0,180}?\bonlyOwner\b'
+      - '(?:未披露|隐瞒|隐藏|不披露)[^。！？\r\n]{0,28}(?:owner|所有者|管理员)[^。！？\r\n]{0,28}(?:增发|改税率|改费率|暂停|冻结|提取)'
+      - '\b(?:undisclosed|hidden)\b[^.!?\r\n]{0,30}\b(?:owner|admin)\b[^.!?\r\n]{0,30}\b(?:mint|tax|fee|pause|freeze|withdraw)\w*\b'
+    disclosures:
+      - permission: '^_?mint'
+        pattern: '(?:\b(?:owner|admin)\s+(?:can|may)\s+mint\b|(?:所有者|管理员)(?:可以|可|能够|有权)(?:增发|铸造))'
+      - permission: '^set\w*(?:tax|fee)'
+        pattern: '(?:\b(?:owner|admin)\s+(?:can|may)\s+(?:set|change|update)\b[^.\r\n]{0,18}\b(?:tax|fees?)\b|(?:所有者|管理员)(?:可以|可|能够|有权)(?:修改|设置|调整)(?:税率|费率))'
+      - permission: '^_?pause'
+        pattern: '(?:\b(?:owner|admin)\s+(?:can|may)\s+pause\b|(?:所有者|管理员)(?:可以|可|能够|有权)暂停)'
+      - permission: '^_?freeze'
+        pattern: '(?:\b(?:owner|admin)\s+(?:can|may)\s+freeze\b|(?:所有者|管理员)(?:可以|可|能够|有权)冻结)'
+      - permission: '^(?:_?withdraw|sweep)'
+        pattern: '(?:\b(?:owner|admin)\s+(?:can|may)\s+(?:withdraw|sweep)\b|(?:所有者|管理员)(?:可以|可|能够|有权)(?:提取|划转))'
+  - id: R5
+    severity: suspicious
+    explanation: "项目名称或链接疑似冒用币安品牌。"
+    patterns:
+      - '(?:冒充|仿冒|伪装成|谎称)[^。！？\r\n]{0,22}(?:币安|Binance)(?:\s*官方|\s+official)'
+      - '\b(?:impersonate|pretend to be|pose as)\b[^.!?\r\n]{0,25}\b(?:official\s+Binance|Binance(?:\s+Wallet)?)\b'
+      - '^[ \t]*(?:name|project[ _-]?name|项目名(?:称)?)[ \t]*[:=：][ \t]*["'']?(?:official[ _-]+binance\b|binance[ _-]+official\b|币安\s*官方|官方\s*币安)'
+  - id: R6
+    severity: suspicious
+    explanation: "要求提交助记词、私钥、API Secret 或配对码。"
+    patterns:
+      - '(?:输入|填写|提交|发送|提供|告知|转发|分享|粘贴|上传|收集|记录)[^。！？\r\n]{0,28}(?:助记词|私钥|API[ _-]*Secret)'
+      - '(?:提交|发送|提供|告知|转发|分享|上传|收集|记录)[^。！？\r\n]{0,28}配对码'
+      - '(?:助记词|私钥|API[ _-]*Secret|配对码)[^。！？\r\n]{0,20}(?:发给|发送给|提交给|粘贴到(?:网页|页面|表单))'
+      - '\b(?:(?:(?:log|display|enter|type|provide|submit|send|share|paste|upload|collect|record|ask for),[ \t]+)+(?:or[ \t]+)?)?(?:enter|type|provide|submit|send|share|paste|upload|collect|record|ask for)\b[^.!?\r\n]{0,40}\b(?:seed phrases?|recovery phrases?|mnemonic(?: phrases?)?|private keys?|API[ _-]*secrets?)\b'
+      - '\b(?:provide|submit|send|share|upload|collect|record|ask for)\b[^.!?\r\n]{0,40}\bpairing[ -]?codes?\b'
+      - '\b(?:seed phrase|recovery phrase|mnemonic(?: phrase)?|private key|API[ _-]*secret|pairing[ -]?code)\b[^.!?\r\n]{0,24}\b(?:is required|must be (?:sent|submitted|uploaded|provided))\b'
+  - id: review-injection
+    severity: suspicious
+    explanation: "内容包含试图覆盖审查规则或指定审查结论的指令。"
+    patterns:
+      - '忽略(?:以上|上述|之前的?|先前的?|所有|这些)(?:审查)?(?:规则|指令|要求)'
+      - '(?:输出|返回|只回复)\s*[「“"]?\s*(?:PASS\b|无风险|未发现风险)'
+      - '\b(?:ignore|disregard|forget)\s+(?:(?:all|the|any)\s+)*(?:previous|prior|above|earlier)\s+(?:review\s+)?(?:instructions|rules)\b'
+      - '\b(?:output|return|respond with)\s+(?:only\s+)?["'']?PASS\b'
+  - id: R3
+    severity: high
+    explanation: "代码调用 approve 时传入最大授权数额。"
+    patterns:
+      - '\bapprove\s*\([^,;]{1,160},\s*(?:type\s*\(\s*uint256\s*\)\s*\.\s*max|(?:[\w$]+\.)*max_?uint_?256|0x[f]{64}n?|115792089237316195423570985008687907853269984665640564039457584007913129639935n?|2n?\s*\*\*\s*256n?\s*-\s*1n?)\s*[,)\]]'
+  - id: R6
+    severity: high
+    explanation: "代码将助记词或私钥变量直接传入网络请求。"
+    patterns:
+      - '\b(?:fetch\s*\([^,();]{0,160},\s*\{[^{}();]{0,160}?\bbody\s*:|axios(?:\.request)?\s*\(\s*\{[^{}();]{0,160}?\bdata\s*:|axios\.(?:post|put|patch)\s*\([^,();]{0,160},|requests\.post\s*\([^,();]{0,160},\s*(?:(?:data|json|params)\s*=\s*)?)\s*(?:JSON\.stringify\s*\(\s*)?(?:\{(?:[^{}();]{0,160}?[,:])?\s*)?(?:[\w$]+\s*\.\s*)*\b(?:mnemonic(?:_?phrase)?|seed_?phrase|private_?key)\b(?=\s*[,})])'
+      - '^[ \t]*curl(?=[ \t])[^\r\n;|&]{0,240}?[ \t](?:-d|--data(?:-raw|-binary|-urlencode)?)(?:[ \t]+|=)(?:"[^"\r\n]{0,120}?|[^ \t\r\n;|&"'']{0,120}?)\$(?:\{(?:mnemonic(?:_?phrase)?|seed_?phrase|private_?key)\}|(?:mnemonic(?:_?phrase)?|seed_?phrase|private_?key)\b)'

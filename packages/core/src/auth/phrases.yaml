@@ -1,0 +1,42 @@
+version: 1
+rules:
+  - id: pairing-code
+    explanation: "诱导泄露配对码。配对码只应在官方 App 内核对。"
+    zh:
+      - '(?:输入|填写|提交|发送|提供|告知|转发|分享|粘贴|复制).{0,32}配对码'
+      - '配对码.{0,20}(?:发给|发送给|提交给|粘贴到|填入)'
+    en:
+      - '\b(?:enter|type|provide|submit|send|share|paste|forward)\b.{0,48}\bpairing[ -]code\b'
+      - '\bpairing[ -]code\b.{0,24}\b(?:is required|must be (?:sent|entered|provided))\b'
+  - id: scan-identity
+    explanation: "话术诱导扫码验证身份。"
+    zh:
+      - '(?:扫码|扫描二维码|扫二维码).{0,30}(?:验证身份|身份验证|实名认证|核验身份)'
+      - '(?:验证身份|身份验证|实名认证|核验身份).{0,30}(?:扫码|扫描二维码|扫二维码)'
+    en:
+      - '\b(?:scan|scanning)\b.{0,36}\b(?:QR\s+)?code\b.{0,40}\b(?:verify\b.{0,16}\bidentity|identity verification)\b'
+      - '\b(?:verify\b.{0,16}\bidentity|identity verification)\b.{0,40}\b(?:scan|scanning)\b.{0,36}\b(?:QR\s+)?code\b'
+  - id: scan-airdrop
+    explanation: "话术诱导扫码领取空投。"
+    zh:
+      - '(?:扫码|扫描二维码|扫二维码).{0,30}(?:领取|申领|获取).{0,12}空投'
+      - '(?:领取|申领|获取).{0,12}空投.{0,30}(?:扫码|扫描二维码|扫二维码)'
+    en:
+      - '\b(?:scan|scanning)\b.{0,36}\b(?:QR\s+)?code\b.{0,40}\b(?:claim|receive|collect)\b.{0,20}\bairdrop\b'
+      - '\b(?:claim|receive|collect)\b.{0,20}\bairdrop\b.{0,40}\b(?:scan|scanning)\b.{0,36}\b(?:QR\s+)?code\b'
+  - id: scan-agent-id
+    explanation: "话术诱导扫码激活 Agent ID。"
+    zh:
+      - '(?:扫码|扫描二维码|扫二维码).{0,30}激活.{0,12}Agent\s*ID\b'
+      - '激活.{0,12}Agent\s*ID\b.{0,30}(?:扫码|扫描二维码|扫二维码)'
+    en:
+      - '\b(?:scan|scanning)\b.{0,36}\b(?:QR\s+)?code\b.{0,40}\bactivate\b.{0,20}\bagent\s+id\b'
+      - '\bactivate\b.{0,20}\bagent\s+id\b.{0,40}\b(?:scan|scanning)\b.{0,36}\b(?:QR\s+)?code\b'
+  - id: wallet-secret
+    explanation: "话术索取助记词或私钥。持有这些信息的人可以操作对应钱包。"
+    zh:
+      - '(?:输入|填写|提交|发送|提供|告知|转发|分享|粘贴|上传).{0,30}(?:助记词|私钥)'
+      - '(?:助记词|私钥).{0,20}(?:发给|发送给|提交给|粘贴到|填入)'
+    en:
+      - '\b(?:enter|type|provide|submit|send|share|paste|upload)\b.{0,48}\b(?:seed phrase|recovery phrase|mnemonic(?: phrase)?|private key)\b'
+      - '\b(?:seed phrase|recovery phrase|mnemonic(?: phrase)?|private key)\b.{0,24}\b(?:is required|must be (?:sent|entered|provided))\b'

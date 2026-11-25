@@ -1,0 +1,14 @@
+{
+  "chainId": 97,
+  "registry": "0xac18215c87c6d4d0f1c1ed090ee54d9a8ee6e5da",
+  "deploymentBlock": "144594402",
+  "deploymentTxHash": "0xa6ce84358c7beac295582c9658373c2bada903de8d2e4036e9bca0360b9384be",
+  "agentId": "0x5ADAFA85b2fc09c1769F5bcc9F216D5104CCB688",
+  "mockAgentId": true,
+  "semaphore": "0xb7e67Aaf211cC4c0B05a427aD4B1F802355CE56F",
+  "semaphoreVerifier": "0x5fa3459467a490b8ed7e6659ab802a197feffff3",
+  "poseidonT3": "0x12ff2aeaac947cF1dD2ED29bF83b85dfBF3c8ca9",
+  "seeder": "0x45f5F8d2BBb9cF1BC02c68829BEACa0f38382C45",
+  "n": "3",
+  "t": "600"
+}

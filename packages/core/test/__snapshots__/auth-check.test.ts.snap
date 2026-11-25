@@ -1,0 +1,70 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`体检报告快照：无命中 1`] = `
+{
+  "boundaryNote": "体检依据所提供的内容和信号。工具看不到 App 内的扫码、配对码和确认流程，请在 App 内自行核对。",
+  "evidence": [],
+  "level": "none",
+  "levelLabel": "未发现风险",
+}
+`;
+
+exports[`体检报告快照：未知 1`] = `
+{
+  "boundaryNote": "体检依据所提供的内容和信号。工具看不到 App 内的扫码、配对码和确认流程，请在 App 内自行核对。",
+  "evidence": [
+    {
+      "excerpt": "配对码",
+      "explanation": "授权请求格式尚未核实。只在你主动发起登录时，才在官方 App 内核对配对码。本机近期没有发起过登录，除非你在其他设备上主动登录，否则请拒绝。",
+      "level": "unknown",
+      "ruleId": "auth.unknown-format",
+    },
+  ],
+  "level": "unknown",
+  "levelLabel": "未知",
+}
+`;
+
+exports[`体检报告快照：高风险 1`] = `
+{
+  "boundaryNote": "体检依据所提供的内容和信号。工具看不到 App 内的扫码、配对码和确认流程，请在 App 内自行核对。",
+  "evidence": [
+    {
+      "excerpt": "https://web3.binance.com/agent-login?_ul=example&expireAt=1795507500000",
+      "explanation": "官方域名不代表这个授权是你本人发起的。",
+      "level": "none",
+      "ruleId": "domain.official",
+    },
+    {
+      "excerpt": "https://web3.binance.com/agent-login?_ul=example&expireAt=1795507500000",
+      "explanation": "这不是你本机近期发起的授权。扫码确认会让发起请求的 Agent 获得操作你钱包的权限。本机近期没有发起过登录，除非你在其他设备上主动登录，否则请拒绝。",
+      "level": "high",
+      "ruleId": "auth.no-recent-local-login",
+    },
+  ],
+  "level": "high",
+  "levelLabel": "高风险",
+}
+`;
+
+exports[`体检报告快照：高风险与外部命中 1`] = `
+{
+  "boundaryNote": "体检依据所提供的内容和信号。工具看不到 App 内的扫码、配对码和确认流程，请在 App 内自行核对。",
+  "evidence": [
+    {
+      "excerpt": "example.test",
+      "explanation": "情报源：ScamSniffer（数据时间 2026-11-24）。",
+      "level": "suspicious",
+      "ruleId": "external.intel",
+    },
+    {
+      "excerpt": "example.test",
+      "explanation": "社区信号：7 位真人确认（社区确认）。来源：BSC 风险信号库。",
+      "level": "high",
+      "ruleId": "external.community",
+    },
+  ],
+  "level": "high",
+  "levelLabel": "高风险",
+}
+`;

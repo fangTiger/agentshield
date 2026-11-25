@@ -1,0 +1,14 @@
+[profile.default]
+src = "src"
+test = "test"
+script = "script"
+out = "out"
+solc_version = "0.8.23"
+allow_paths = ["../node_modules"]
+remappings = [
+    "forge-std/=../node_modules/forge-std/src/",
+    "@semaphore-protocol/contracts/=../node_modules/@semaphore-protocol/contracts/",
+    # Foundry 会去掉以 .sol 结尾的映射目标的尾斜杠，保留导入路径中的斜杠即可。
+    "@zk-kit/lean-imt.sol=../node_modules/@zk-kit/lean-imt.sol",
+    "poseidon-solidity/=../node_modules/poseidon-solidity/",
+]

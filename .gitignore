@@ -1,0 +1,24 @@
+node_modules/
+.pnpm-store/
+dist/
+out/
+cache/
+.cache/
+broadcast/
+.next/
+.vercel/
+contracts/lib/
+contracts/deployments/31337.json
+.env
+.env.*
+log/*.log
+*.log
+.DS_Store
+.claude/skills/binance-agentic-wallet/
+# 本地开发工具与过程文件，不进公开仓库
+.claude/
+skills-lock.json
+log/*
+!log/.gitkeep
+docs/dev/prompts/
+.agents/

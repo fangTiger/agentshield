@@ -1,0 +1,12 @@
+{
+  "name": "@agentshield/intel",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc --noCheck",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "pipeline": "node dist/index.js"
+  }
+}

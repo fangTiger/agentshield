@@ -1,0 +1,23 @@
+[
+  {
+    "slug": "tumbwa/corbits",
+    "contentHash": "0x38176279fd80143f2a707509b2d55ee4963f9740d2846e8644299087baefe910",
+    "verdict": "false-positive",
+    "reason": "SKILL.md 和 skill-card.md 中的 R6 命中来自禁止导出或粘贴私钥等凭据的防御性说明。",
+    "reviewedAt": "2026-11-24T10:01:32Z"
+  },
+  {
+    "slug": "mailglo/mailglo",
+    "contentHash": "0xcfe23c28c852d94ee00537fe4d1203c324fd8d8fab4b18be203ac13073fc82cb",
+    "verdict": "false-positive",
+    "reason": "要求密码或私钥是 Never 清单中的禁止事项。",
+    "reviewedAt": "2026-11-24T10:01:32Z"
+  },
+  {
+    "slug": "octohall/octohall",
+    "contentHash": "0x6b688c47ebca31ab2930f3f03911c269305336be93796614ba76529785c0a730",
+    "verdict": "false-positive",
+    "reason": "命中文字提醒用户不得在发送的文本中包含秘密。",
+    "reviewedAt": "2026-11-24T10:01:32Z"
+  }
+]

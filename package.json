@@ -1,0 +1,25 @@
+{
+  "name": "agentshield-workspace",
+  "private": true,
+  "packageManager": "pnpm@9.15.0",
+  "scripts": {
+    "build": "pnpm -r build",
+    "test": "vitest run",
+    "lint": "eslint ."
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@semaphore-protocol/contracts": "4.14.5",
+    "@semaphore-protocol/group": "4.14.5",
+    "@semaphore-protocol/identity": "4.14.5",
+    "@semaphore-protocol/proof": "4.14.5",
+    "@types/node": "^22.0.0",
+    "@zk-kit/lean-imt.sol": "2.0.1",
+    "eslint": "^10.15.0",
+    "forge-std": "https://codeload.github.com/foundry-rs/forge-std/tar.gz/refs/tags/v1.12.0",
+    "poseidon-solidity": "0.0.5",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.74.0",
+    "vitest": "^4.0.18"
+  }
+}

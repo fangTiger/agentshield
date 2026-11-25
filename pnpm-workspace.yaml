@@ -1,0 +1,6 @@
+packages:
+  - 'packages/core'
+  - 'skill'
+  - 'relayer'
+  - 'web'
+  - 'intel'
