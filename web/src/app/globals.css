@@ -217,6 +217,7 @@ code {
 .cover h1 em {
   color: var(--l2);
   font-style: normal;
+  white-space: nowrap;
 }
 @supports (background-clip: text) {
   .cover h1 em {

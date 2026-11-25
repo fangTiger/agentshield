@@ -10,7 +10,7 @@ export default function Home() {
         <div className="g c2 cover-intro">
           <div>
             <p className="kick">给 Agentic Wallet 用户的防骗 Skill</p>
-            <h1>扫码、装 Skill 之前，<br />让 Agent <em>先替你查一遍</em></h1>
+            <h1>扫码、装 Skill 前，<br />让 Agent <em>先查一遍</em></h1>
             <p className="lead">现在的骗局不再直接要你的私钥，而是骗你扫一个码、输一个配对码，或者装一个会偷偷转账的 Skill。AgentShield 装在你的 Agent 里，遇到这些时刻会先检查，有问题直接告诉你。</p>
             <div className="actions">
               <Link className="button primary" href="/guide/">让你的 Agent 加入 <span aria-hidden="true">↗</span></Link>
