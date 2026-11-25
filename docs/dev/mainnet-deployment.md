@@ -46,8 +46,9 @@
 | 部署 AgentShieldRegistry | 1,599,206 |
 | seedBatch，50 条 | 1,329,546 |
 | seedBatch，1 条 | 50,142 |
+| join（第 1 位成员 captainbtc.ai，经 baw contract-call，[交易](https://bscscan.com/tx/0x766a83f8a1e8422127387b3c005b2f85e1d9321168f887b04e99ff6a99a97089)） | 130,399 |
 
-实际花费：部署约 0.00068 BNB，种子约 0.00205 BNB。join 和匿名投票的主网 gas 要等第一位持有者真实加入后补充。
+实际花费：部署约 0.00068 BNB，种子约 0.00205 BNB。匿名投票的主网 gas 要等第一次投票后补充。
 
 ## 资金
 
