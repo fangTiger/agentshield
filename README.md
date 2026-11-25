@@ -26,21 +26,23 @@ AgentShield CLI 需要 Node.js 20 或更高版本。
 5. 对 Agent 说「加入 AgentShield」，核对合约、调用参数和预估 Gas 后确认。加入只登记匿名身份承诺，合约调用金额为零，不涉及资产授权。AgentShield 不收集助记词、私钥或配对码，也不提供网页扫码登录。
 6. 建议让 Agent 引导你在终端使用 `identity export` 创建加密备份，并妥善保管备份和口令。
 
-CLI 默认使用 BSC 主网。主网待部署期间可以运行本地扫描和授权体检，或设置 `AGENTSHIELD_NETWORK=testnet` 使用内置测试网配置。测试网使用 Mock Agent ID 合约，登记资格以该合约为准。[Skill 使用说明](skill/SKILL.md)
+CLI 默认使用 BSC 主网，部署信息已内置，无需手写配置。设置 `AGENTSHIELD_NETWORK=testnet` 可切换到内置测试网配置。测试网使用 Mock Agent ID 合约，登记资格以该合约为准。[Skill 使用说明](skill/SKILL.md)
 
 ## 合约地址
 
-BSC 主网（56）AgentShield 合约待部署。BSC 测试网（97）部署如下。[测试网部署清单](contracts/deployments/97.json)
+网站：https://agentshield-bsc.vercel.app（主网） · 匿名中继：https://agentshield-relayer.vercel.app
 
-| 合约 | BSC 测试网地址 |
-| --- | --- |
-| AgentShieldRegistry | `0xac18215c87c6d4d0f1c1ed090ee54d9a8ee6e5da` |
-| Mock Agent ID | `0x5ADAFA85b2fc09c1769F5bcc9F216D5104CCB688` |
-| Semaphore | `0xb7e67Aaf211cC4c0B05a427aD4B1F802355CE56F` |
-| SemaphoreVerifier | `0x5fa3459467a490b8ed7e6659ab802a197feffff3` |
-| PoseidonT3 | `0x12ff2aeaac947cF1dD2ED29bF83b85dfBF3c8ca9` |
+所有合约都已在 BscScan 验证源码。部署清单：[主网](contracts/deployments/56.json) · [测试网](contracts/deployments/97.json)
 
-测试网部署区块为 `144594402`。
+| 合约 | BSC 主网（56） | BSC 测试网（97） |
+| --- | --- | --- |
+| AgentShieldRegistry | [`0xb7e67aaf211cc4c0b05a427ad4b1f802355ce56f`](https://bscscan.com/address/0xb7e67aaf211cc4c0b05a427ad4b1f802355ce56f#code) | `0xac18215c87c6d4d0f1c1ed090ee54d9a8ee6e5da` |
+| Agent ID | `0x60b9262456de011f7d15a54cdd8c48baaa8b022f`（官方合约） | `0x5ADAFA85b2fc09c1769F5bcc9F216D5104CCB688`（Mock） |
+| Semaphore | [`0x5fA3459467a490b8Ed7e6659ab802a197FEfFfF3`](https://bscscan.com/address/0x5fA3459467a490b8Ed7e6659ab802a197FEfFfF3#code) | `0xb7e67Aaf211cC4c0B05a427aD4B1F802355CE56F` |
+| SemaphoreVerifier | [`0x5adafa85b2fc09c1769f5bcc9f216d5104ccb688`](https://bscscan.com/address/0x5adafa85b2fc09c1769f5bcc9f216d5104ccb688#code) | `0x5fa3459467a490b8ed7e6659ab802a197feffff3` |
+| PoseidonT3 | [`0x12ff2aeaac947cF1dD2ED29bF83b85dfBF3c8ca9`](https://bscscan.com/address/0x12ff2aeaac947cF1dD2ED29bF83b85dfBF3c8ca9#code) | `0x12ff2aeaac947cF1dD2ED29bF83b85dfBF3c8ca9` |
+
+部署区块：主网 `135603954`，测试网 `144594402`。主网参数 N=3、T=86400 秒；唯一特权角色 seeder 为 `0x45f5F8d2BBb9cF1BC02c68829BEACa0f38382C45`，只能写入种子计数，可永久放弃权限。合约没有 owner，不接收资产。
 
 ## 目录结构
 

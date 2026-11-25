@@ -80992,8 +80992,24 @@ import { randomUUID as randomUUID2 } from "node:crypto";
 import { mkdir as mkdir3, readFile as readFile3, rename as rename2, rm as rm2, writeFile as writeFile2 } from "node:fs/promises";
 import { dirname as dirname2, join as join3 } from "node:path";
 
-// ../contracts/deployments/97.json
+// ../contracts/deployments/56.json
 var __default = {
+  chainId: 56,
+  registry: "0xb7e67aaf211cc4c0b05a427ad4b1f802355ce56f",
+  deploymentBlock: "135603954",
+  deploymentTxHash: "0x2350e23b3840bd209772470c9202b0aac3d864a14cb901e4bdf95e6a15e152bc",
+  agentId: "0x60B9262456dE011F7d15a54CdD8c48bAaa8B022F",
+  mockAgentId: false,
+  semaphore: "0x5fA3459467a490b8Ed7e6659ab802a197FEfFfF3",
+  semaphoreVerifier: "0x5adafa85b2fc09c1769f5bcc9f216d5104ccb688",
+  poseidonT3: "0x12ff2aeaac947cF1dD2ED29bF83b85dfBF3c8ca9",
+  seeder: "0x45f5F8d2BBb9cF1BC02c68829BEACa0f38382C45",
+  n: "3",
+  t: "86400"
+};
+
+// ../contracts/deployments/97.json
+var __default2 = {
   chainId: 97,
   registry: "0xac18215c87c6d4d0f1c1ed090ee54d9a8ee6e5da",
   deploymentBlock: "144594402",
@@ -81011,17 +81027,17 @@ var __default = {
 // src/deployments.ts
 var deployments = {
   mainnet: {
-    agentIdAddress: "0x60b9262456de011f7d15a54cdd8c48baaa8b022f",
-    rpcUrl: "https://bsc-rpc.publicnode.com",
-    registryAddress: "",
-    deploymentBlock: "",
-    relayerUrl: ""
-  },
-  testnet: {
     agentIdAddress: __default.agentId,
-    rpcUrl: "https://bsc-testnet-rpc.publicnode.com",
+    rpcUrl: "https://bsc-rpc.publicnode.com",
     registryAddress: __default.registry,
     deploymentBlock: __default.deploymentBlock,
+    relayerUrl: "https://agentshield-relayer.vercel.app"
+  },
+  testnet: {
+    agentIdAddress: __default2.agentId,
+    rpcUrl: "https://bsc-testnet-rpc.publicnode.com",
+    registryAddress: __default2.registry,
+    deploymentBlock: __default2.deploymentBlock,
     relayerUrl: "https://agentshield-relayer-testnet.vercel.app"
   }
 };

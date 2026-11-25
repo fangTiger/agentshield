@@ -228,6 +228,9 @@ describe("shield 命令行", () => {
 
   it("只对升级后的高风险结论进入匿名上报流程", async () => {
     const path = fileURLToPath(new URL("../../packages/core/test/fixtures/skills/r6", import.meta.url));
+    // 链上没有该 Skill 的社区信号
+    chain.readContract.mockImplementation(async ({ functionName }: { functionName: string }) =>
+      functionName === "signalsOf" ? [0n, 0n, 0n, 0n, 0n, 0] : 0n);
     await run(["scan", path, "--json"]);
     expect(last()).toMatchObject({ level: "suspicious", redlines: { R6: true } });
     expect(last()).not.toHaveProperty("autoReport");
@@ -310,14 +313,11 @@ describe("shield 命令行", () => {
     expect(fetch).not.toHaveBeenCalled();
   });
 
-  it("缺少部署配置时给出中文配置指引", async () => {
-    await expect(run(["join"])).rejects.toThrow("主网部署信息尚未内置，可设置 network=testnet 试用");
+  it("未写配置时默认使用内置主网部署信息", async () => {
+    const mainnet = await readFile(new URL("../../contracts/deployments/56.json", import.meta.url), "utf8")
+      .then((text) => JSON.parse(text));
     await run(["status"]);
-    expect(last()).toMatchObject({
-      network: "mainnet",
-      localIdentity: false,
-      message: "主网部署信息尚未内置，可设置 network=testnet 试用",
-    });
+    expect(last()).toMatchObject({ network: "mainnet", localIdentity: false, registry: mainnet.registry });
   });
 
   it("从所选网络读取内置部署信息，允许文件和环境变量覆盖", async () => {
