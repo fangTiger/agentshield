@@ -16,10 +16,11 @@
 
 ## Vercel 服务
 
+2026-11-25 已删除测试网网页项目，避免和主网站点混淆；只保留中继，供 Skill 的 `network=testnet` 模式使用。
+
 | 服务 | 地址 | 项目 |
 | --- | --- | --- |
 | 匿名中继 | https://agentshield-relayer-testnet.vercel.app | agentshield-relayer-testnet（Root：relayer，Hono，Node 22） |
-| 网页 | https://agentshield-testnet.vercel.app | agentshield-testnet（Root：web，Next.js，Node 22） |
 
 中继限流参数：每个实例 2 QPS，每日 gas 预算 2000 万。中继私钥以 sensitive 变量的形式保存在 Vercel 上，只对 Production 环境生效。
 

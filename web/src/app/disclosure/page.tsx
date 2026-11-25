@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { DeploymentDetails } from "../../components/deployment-details";
+import { SectionHeading } from "../../components/section-heading";
 
 export const metadata: Metadata = { title: "安全与披露" };
 
@@ -18,42 +19,55 @@ export default function DisclosurePage() {
         <h1>安全与披露</h1>
         <p>查看合约源码、种子权限、数据出处和社区信号的使用边界。</p>
       </header>
-      <div className="documentation">
-        <section>
-          <h2>合约地址与链上参数</h2>
-          <DeploymentDetails />
-          <p>社区确认要求危险票达到 N，至少为误报票的两倍，且首张危险票已满冷静期 T。误报票达到 N 且不少于危险票时，对象进入有争议状态。N 和 T 在部署时固定。</p>
-        </section>
-        <section>
-          <h2>主网 gas 实测</h2>
-          <p>BSC 主网 gas 价格 0.05 gwei 下的实测值：持有者加入（<code>join</code>）130,399 gas，约 0.0000065 BNB，由持有者自己支付，仅此一次；匿名投票 342,181 gas，由中继代付；种子写入每 50 条约 133 万 gas，由种子账户支付。</p>
-        </section>
-        <section>
-          <h2>种子地址的权限</h2>
-          <p><code>seeder</code> 是信号库唯一特权角色，只能通过 <code>seedBatch</code> 增加种子信号并记录来源，或通过 <code>renounceSeeder</code> 永久放弃权限。社区票数独立统计。信号库不可升级，拒收资产。任何人都可以提交申诉，申诉只添加记录。</p>
-        </section>
-        <section>
-          <h2>数据源与许可证</h2>
-          <ul className="license-list">
-            {sources.map(([name, license, usage, url]) => (
-              <li key={name}>
-                <a className="text-link" href={url} target="_blank" rel="noreferrer">{name} <span aria-hidden="true">↗</span></a>
-                <span className="license">{license}</span>
-                <p>{usage}</p>
-              </li>
-            ))}
-          </ul>
-        </section>
-        <section>
-          <h2>风险与隐私</h2>
-          <ul className="risk-list">
+      <DeploymentDetails />
+      <section className="numbered-section">
+        <SectionHeading number="04" kicker="链上开销" title="主网 gas 实测" subtitle={<>BSC 主网 gas 价格为 <span className="din">0.05</span> gwei 时的实测值。</>} />
+        <div className="g c3">
+          <article className="cd">
+            <h3>持有者加入 <code>join</code></h3>
+            <p><strong className="gas-value">130,399</strong> gas</p>
+            <p>约 0.0000065 BNB，由持有者支付一次。</p>
+          </article>
+          <article className="cd">
+            <h3>匿名投票</h3>
+            <p><strong className="gas-value">342,181</strong> gas</p>
+            <p>由中继代付。</p>
+          </article>
+          <article className="cd">
+            <h3>种子写入</h3>
+            <p>每 50 条约 <strong className="gas-value">133 万</strong> gas</p>
+            <p>由种子账户支付。</p>
+          </article>
+        </div>
+      </section>
+      <section className="numbered-section">
+        <SectionHeading number="05" kicker="外部依赖" title="数据源与许可证" />
+        <div className="tw" role="region" aria-label="数据源与许可证表" tabIndex={0}>
+          <table className="tb license-table">
+            <thead><tr><th scope="col">来源</th><th scope="col">许可证或条款</th><th scope="col">用途</th></tr></thead>
+            <tbody>
+              {sources.map(([name, license, usage, url]) => (
+                <tr key={name}>
+                  <th scope="row"><a href={url} target="_blank" rel="noreferrer">{name} <span aria-hidden="true">↗</span></a></th>
+                  <td><span className="tg dashed">{license}</span></td>
+                  <td>{usage}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <section className="numbered-section">
+        <SectionHeading number="06" kicker="使用边界" title="风险与隐私" />
+        <div className="cd">
+          <ul className="ls">
             <li>社区投票和种子情报可能存在误报、遗漏或延迟。请结合证据独立判断。</li>
             <li>AgentShield 提供授权体检和 Skill 扫描，不拦截 App 内流程。扫码与确认仍由用户在官方 App 内完成。</li>
             <li>公开投票可在区块浏览器查到发送者。观测台只展示对应交易链接和证据。匿名投票的时间和网络元数据仍可能被用于关联。</li>
             <li>AgentShield 由独立社区团队维护，为 Binance Agentic Wallet 用户设计。</li>
           </ul>
-        </section>
-      </div>
+        </div>
+      </section>
     </div>
   );
 }

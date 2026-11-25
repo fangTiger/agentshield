@@ -1,6 +1,7 @@
 import { configDefaults, defineConfig } from "vitest/config";
 
 export default defineConfig({
+  envDir: "tests",
   test: {
     include: [
       "{packages/*,skill,relayer,web,intel}/test/**/*.{test,spec}.?(c|m)[jt]s?(x)",

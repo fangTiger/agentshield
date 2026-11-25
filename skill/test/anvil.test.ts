@@ -23,6 +23,7 @@ const agentIdAbi = parseAbi(["function mint(address holder)", "function balanceO
 it("在 Anvil 用部署脚本、模拟 Agent ID 和真实 Semaphore 验证加入及两类投票", async () => {
   const directory = await mkdtemp(join(tmpdir(), "shield-anvil-"));
   const anvil = spawn("anvil", ["--host", "127.0.0.1", "--port", "0", "--accounts", "2"], {
+    cwd: directory,
     stdio: ["ignore", "pipe", "ignore"],
   });
   const exited = once(anvil, "close");

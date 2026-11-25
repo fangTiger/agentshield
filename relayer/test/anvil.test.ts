@@ -26,7 +26,9 @@ it.runIf(process.env.RUN_RELAYER_INTEGRATION === "true")(
   "真实证明经 HTTP 中继上链，重复投票返回 409，统计与链上一致",
   async () => {
     const artifacts = await mkdtemp(join(tmpdir(), "agentshield-relayer-"));
-    const anvil = spawn("anvil", ["--host", "127.0.0.1", "--port", "0", "--accounts", "2", "--mnemonic-random"]);
+    const anvil = spawn("anvil", ["--host", "127.0.0.1", "--port", "0", "--accounts", "2", "--mnemonic-random"], {
+      cwd: artifacts,
+    });
     const log = vi.spyOn(console, "log").mockImplementation(() => {});
     let server: ReturnType<typeof startRelayer> | undefined;
 

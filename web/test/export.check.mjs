@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { existsSync, readdirSync, readFileSync } from "node:fs";
+import { env } from "node:process";
 import { test } from "node:test";
 import { URL } from "node:url";
 import { toEventSelector, toFunctionSelector } from "viem";
@@ -27,6 +28,30 @@ test("首页主入口指向 Agent 加入指南，静态导出没有网页加入�
   assert.match(guide, /identity export/);
   assert.doesNotMatch(home + guide, /href="\/join\/?"/);
   assert.equal(existsSync(new URL("join/", output)), false);
+});
+
+test("首页和指南的静态 HTML 均展示一句话加入指令", () => {
+  const prompt = "请从 GitHub 安装 fangTiger/agentshield 这个 Skill，然后帮我加入 AgentShield。";
+  for (const name of ["index.html", "guide/index.html"]) {
+    const html = readFileSync(new URL(name, output), "utf8");
+    assert.ok(html.includes(`<code>${prompt}</code>`), name);
+  }
+});
+
+test("各页面的网络标签与构建链 ID 一致，测试网横幅链接主网", () => {
+  const isTestnet = env.NEXT_PUBLIC_CHAIN_ID === "97";
+  for (const name of ["index.html", "guide/index.html", "signals/index.html", "signals/detail/index.html", "disclosure/index.html"]) {
+    const html = readFileSync(new URL(name, output), "utf8");
+    if (isTestnet) {
+      assert.match(html, />测试网 · 演示数据</, name);
+      assert.match(html, /这是测试网演示站，数据与主网无关。/, name);
+      assert.match(html, /href="https:\/\/agentshield-bsc\.vercel\.app"/, name);
+      assert.doesNotMatch(html, />BSC 主网</, name);
+    } else {
+      assert.match(html, />BSC 主网</, name);
+      assert.doesNotMatch(html, /测试网 · 演示数据|这是测试网演示站/, name);
+    }
+  }
 });
 
 test("导出的浏览器代码不包含 Agent ID 名址查询或登记事件", () => {
