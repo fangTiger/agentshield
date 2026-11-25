@@ -6,7 +6,7 @@ import { themeStorageKey } from "../lib/site-settings";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: { default: "AgentShield · 风险信号观测台", template: "%s · AgentShield" },
+  title: { default: "AgentShield · 给 Agent 的防骗 Skill", template: "%s · AgentShield" },
   description: "为 Binance Agentic Wallet 用户设计的授权体检、Skill 红线扫描与社区风险信号工具。",
 };
 
